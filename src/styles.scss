@@ -1,0 +1,22 @@
+// $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~bootstrap/scss/bootstrap";
+
+// @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+// @import '~@fortawesome/fontawesome-free/scss/solid';
+// @import '~@fortawesome/fontawesome-free/scss/regular';
+// @import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";
+@import "~@fullcalendar/bootstrap/main.css";
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-calendar {
+  width: 100%; 
+}

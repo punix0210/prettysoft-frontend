@@ -1,0 +1,19 @@
+defaultView="dayGridMonth" 
+                    [locale]="options.localeCode" 
+                    [header]="options.header" 
+                    [plugins]="options.calendarPlugins" 
+                    [weekends]="options.calendarWeekends" 
+                    [events]="calendarEvents"
+                    [buttonText]="{
+                        timeGridDay:'Dia',
+                        timeGridWeek:'Semana',
+                        dayGridMonth:'Mês',
+                        prev:'Anterior',
+                        next:'Próximo',
+                        today:'Hoje'
+                      }"
+                    [businessHours]="{                        
+                        startTime: '08:00',
+                        endTime: '22:00'
+                    }"
+            (dateClick)="handleDateClick($event)"

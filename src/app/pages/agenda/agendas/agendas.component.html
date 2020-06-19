@@ -1,0 +1,188 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Agenda</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" tabindex="0"><a href="javascript:void(0)">Home</a></li>
+                        <!---->
+                        <!---->
+                        <!---->
+                        <li class="breadcrumb-item active">Agenda</li>
+                        <!---->
+                        <!---->
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-sm-flex d-md-flex flex-wrap justify-content-end">
+                <div class="p-0 bd-highlight">
+                    <mat-form-field style="width: 170px;float: right">
+                        <mat-select value="timeGridDay">
+                            <mat-option value="timeGridDay" (click)="onCalendarView('timeGridDay')">Dia</mat-option>
+                            <mat-option value="timeGridWeek" (click)="onCalendarView('timeGridWeek')">Semana
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="p-2 bd-highlight">
+                    <button type="button" (click)="getToday()" class="btn btn-block btn-primary">Hoje</button>
+                </div> -->
+                <div class="p-2 bd-highlight">
+                    <button type="button" class="btn btn-block btn-primary" (click)="onCreate(this.Agenda)">
+                        <i class="ti-plus"></i> Agendamento </button></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-12 col-md-3 ">
+
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <mat-calendar #calendar [selected]="dateValue" (selectedChange)="onDateSelect($event)">
+                        </mat-calendar>
+                        <!-- <div class="card-body mb-0">
+                            <h6 class="card-subtitle"> Calendário</h6>                            
+                         
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="d-flex d-md-flex d-sm-flex flex-row flex-wrap-reverse bd-highlight">
+                            <div class="p-2 mb-0 flex-fill bd-highlight" [formGroup]="formColaborador">
+                                <mat-form-field>
+                                    <mat-label>Selecionar Profissionais</mat-label>
+                                    <mat-select formControlName="idPessoa"
+                                    (selectionChange)="onSelectColaborador($event.value)"
+                                    >
+                                        <!-- <mat-select-trigger>
+                                            {{colaboradores.value ? colaboradores.value[0] : ''}}
+                                            <span *ngIf="colaboradores.value?.length > 1"
+                                                class="example-additional-selection">
+                                                (+{{colaboradores.value.length - 1}}
+                                                {{colaboradores.value?.length === 2 ? 'outro' : 'outros'}})
+                                            </span>
+                                        </mat-select-trigger> -->
+                                        <mat-option *ngFor="let colaborador of colaboradoresList"
+                                            [value]="colaborador.idPessoa">
+                                            {{colaborador.nmCurto}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <br />
+                            <div class="p-3 mb-0 flex-fill bd-highlight">
+                                <button class="btn btn-primary btn-block" (click)="findAllAgenda()">Buscar</button>
+                            </div>
+                        </div>
+                        <!-- <div class="card-body mb-0">
+                            <h6 class="card-subtitle">Profissionais</h6>                            
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-12 col-md-9 ">
+            <div class="card">
+
+                <!-- <div class="card-body mb-0">
+                                                  
+                </div> -->
+                <div class="card-body b-l calender-sidebar">
+                    <div class="d-flex flex-row p-0 bd-highlight">
+                        <div class="p-2 bd-highlight"><button type="button" (click)="getToday()"
+                                class="btn btn-block btn-primary">Hoje</button></div>
+                        <div class="p-2 bd-highlight">
+                            <h4 class="card-title mt-2">{{title}}</h4>
+                        </div>
+                    </div>
+
+                    <full-calendar #calendarDetail [defaultView]="optionsDetail.defaultView"
+                        [locale]="optionsDetail.localeCode" [header]="false" [editable]="optionsDetail.editable"
+                        [themeSystem]="optionsDetail.themeSystem" [plugins]="optionsDetail.calendarPlugins"
+                        [weekends]="optionsDetail.calendarWeekends" [minTime]="optionsDetail.minTime"
+                        [nowIndicator]="optionsDetail.nowIndicator" [allDaySlot]="optionsDetail.allDaySlot"
+                        [handleWindowResize]="optionsDetail.handleWindowResize" [height]="optionsDetail.height"
+                        [contentHeight]="optionsDetail.contentHeight" [events]="calendarEvents"
+                        [buttonText]="optionsDetail.buttonText" (dateClick)="handleDateClick($event)"
+                        (eventClick)="onEdit($event)">
+                    </full-calendar>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 
+<div class="row" style="background-color: aqua;">
+    <div class="col">
+        <mat-calendar #calendar [selected]="dateValue" (selectedChange)="onDateSelect($event)">
+        </mat-calendar>
+    </div>
+    <div class="col-md-9">
+        <full-calendar #calendarDetail [defaultView]="optionsDetail.defaultView"
+            [locale]="optionsDetail.localeCode" [header]="false" [editable]="optionsDetail.editable"
+            [themeSystem]="optionsDetail.themeSystem" [plugins]="optionsDetail.calendarPlugins"
+            [weekends]="optionsDetail.calendarWeekends" [minTime]="optionsDetail.minTime"
+            [nowIndicator]="optionsDetail.nowIndicator" [allDaySlot]="optionsDetail.allDaySlot"
+            [handleWindowResize]="optionsDetail.handleWindowResize" [height]="optionsDetail.height"
+            [contentHeight]="optionsDetail.contentHeight" [events]="calendarEvents"
+            [buttonText]="optionsDetail.buttonText" (dateClick)="handleDateClick($event)"
+            (eventClick)="openDialog($event)">
+        </full-calendar>
+    </div>
+</div> -->
+
+
+<!-- <div class="d-flex no-block justify-content-end align-items-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <mat-select value="timeGridDay">
+                                <mat-option value="timeGridDay" (click)="onCalendarView('timeGridDay')">Dia</mat-option>
+                                <mat-option value="timeGridWeek" (click)="onCalendarView('timeGridWeek')">Semana
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" (click)="getToday()"
+                        class="btn waves-effect waves-light btn-primary">Hoje</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-success" (click)="openDialog(undefined)"><i
+                            class="fa fa-check"></i> Novo Agendamento </button>
+                    </div>
+                </div>           
+
+            </div> -->
+
+
+<!-- <div class="btn-group" ngbDropdown>
+
+                        <button type="button" value="timeGridDay" class="btn btn-danger dropdown-toggle"
+                            ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
+                            <i class="ti-settings"></i>
+                        </button>
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                            <a class="dropdown-item" value="timeGridDay" (click)="onCalendarView('timeGridDay')"
+                                ngbDropdownItem href="javascript:void(0)">Dia</a>
+                            <a class="dropdown-item" value="timeGridWeek" (click)="onCalendarView('timeGridWeek')"
+                                ngbDropdownItem href="javascript:void(0)">Semana</a>
+
+                        </div>
+                    </div>  -->
